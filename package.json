@@ -1,5 +1,5 @@
 {
-  "name": "paste",
+  "name": "@rgba-image/paste",
   "version": "0.1.0",
   "description": "Paste a region from one ImageData to another",
   "main": "./dist/index.js",
