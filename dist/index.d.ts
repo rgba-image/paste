@@ -1,2 +1,13 @@
-import { SourceToDest } from '@rgba-image/common';
-export declare const paste: SourceToDest;
+import { Paste } from './types';
+export declare const paste: Paste;
+export * from './const';
+export * from './paste-darken';
+export * from './paste-difference';
+export * from './paste-exclusion';
+export * from './paste-hard-light';
+export * from './paste-lighten';
+export * from './paste-multiply';
+export * from './paste-normal';
+export * from './paste-overlay';
+export * from './paste-screen';
+export * from './types';

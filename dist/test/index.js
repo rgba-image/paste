@@ -28,6 +28,13 @@ const getNoise = () => {
     }
     return noise;
 };
+const allEmpty = (array) => {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] !== 0)
+            return false;
+    }
+    return true;
+};
 const noise1 = getNoise();
 const noise2 = getNoise();
 describe('paste', () => {
@@ -58,13 +65,12 @@ describe('paste', () => {
         assert.deepEqual(all, expectAll);
     });
     it('does an early return when sw or sh are 0', () => {
-        const emptyData = new Uint8Array(10 * 10 * 4);
         const swDest = create_image_1.createImage(10, 10);
         const shDest = create_image_1.createImage(10, 10);
         __1.paste(layer1, swDest, 0, 0, 0, 10);
         __1.paste(layer1, shDest, 0, 0, 10, 0);
-        assert.deepEqual(swDest.data, emptyData);
-        assert.deepEqual(shDest.data, emptyData);
+        assert(allEmpty(swDest.data));
+        assert(allEmpty(shDest.data));
     });
     // no test, just lazy benchmarking
     it('big paste', () => {

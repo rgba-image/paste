@@ -1,13 +1,21 @@
 import * as assert from 'assert'
 import * as fs from 'fs'
 import { createImage } from '@rgba-image/create-image'
-import { fromPng, toPng } from '@rgba-image/png'
+import { fromPng } from '@rgba-image/png'
 import { paste } from '..'
 
-const layer1Png = fs.readFileSync( './src/test/fixtures/layer-1.png' )
-const layer2Png = fs.readFileSync( './src/test/fixtures/layer-2.png' )
-const expectRegionsPng = fs.readFileSync( './src/test/fixtures/expect-regions.png' )
-const expectAllPng = fs.readFileSync( './src/test/fixtures/expect-all.png' )
+const layer1Png = fs.readFileSync( 
+  './src/test/fixtures/layer-1.png' 
+)
+const layer2Png = fs.readFileSync( 
+  './src/test/fixtures/layer-2.png' 
+)
+const expectRegionsPng = fs.readFileSync( 
+  './src/test/fixtures/expect-regions.png' 
+)
+const expectAllPng = fs.readFileSync( 
+  './src/test/fixtures/expect-all.png' 
+)
 
 const layer1 = fromPng( layer1Png )
 const layer2 = fromPng( layer2Png )
@@ -30,6 +38,14 @@ const getNoise = () => {
   }
 
   return noise
+}
+
+const allEmpty = ( array: ArrayLike<number> ) => {
+  for( let i = 0; i < array.length; i++ ){
+    if( array[ i ] !== 0 ) return false
+  }
+
+  return true
 }
 
 const noise1 = getNoise()
@@ -75,15 +91,14 @@ describe( 'paste', () => {
   } )
 
   it( 'does an early return when sw or sh are 0', () => {
-    const emptyData = new Uint8Array( 10 * 10 * 4 )
     const swDest = createImage( 10, 10 )
     const shDest = createImage( 10, 10 )
 
     paste( layer1, swDest, 0, 0, 0, 10 )
     paste( layer1, shDest, 0, 0, 10, 0 )
 
-    assert.deepEqual( swDest.data, emptyData )
-    assert.deepEqual( shDest.data, emptyData )
+    assert( allEmpty( swDest.data ) )
+    assert( allEmpty( shDest.data ) )
   } )
 
   // no test, just lazy benchmarking

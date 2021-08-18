@@ -1,9 +1,14 @@
 # paste
 
-Paste a region from one ImageData to another
+Paste a region from one ImageData to another with optional composite mode
 
-The pixels copied from the source image are alpha composited with the pixels in
-the destination image
+With the default mode (`normal`) the pixels copied from the source image are 
+alpha composited with the pixels in the destination image
+
+Composite modes include:
+
+`darken`, `difference`, `exclusion`, `hardLight`, `lighten`, `multiply`,
+`normal`, `overlay`, `screen`
 
 ## install
 
@@ -32,11 +37,59 @@ const destY = 40
 paste( source, dest, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY )
 ```
 
+Paste with the source at half opacity:
+
+```js
+const sourceX = 10
+const sourceY = 20
+const sourceWidth = 50
+const sourceHeight = 100
+const destX = 30
+const destY = 40
+const alpha = 0.5
+
+paste( 
+  source, dest, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, alpha
+)
+```
+
+Paste with the source at normal opacity using screen composite mode:
+
+```js
+const sourceX = 10
+const sourceY = 20
+const sourceWidth = 50
+const sourceHeight = 100
+const destX = 30
+const destY = 40
+const alpha = 1
+const mode = 'screen'
+
+paste( 
+  source, dest, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, 
+  alpha, mode
+)
+```
+
 Arguments following `dest` are optional
 
-If omitted, `sourceX` is `0`, `sourceY` is `0`, `sourceWidth` is
-`source.width - sourceX`, `sourceHeight` is `source.height - sourceY`, `destX`
-is `0` and `destY` is `0`
+If omitted:
+
+```js
+sourceX = 0
+sourceY = 0
+sourceWidth = source.width - sourceX
+sourceHeight = source.height - sourceY
+destX = 0
+destY = 0
+alpha = 1
+mode = 'normal'
+```
+
+Also exported for convenience: 
+
+`pasteDarken`, `pasteDifference`, `pasteExclusion`, `pasteHardLight`, 
+`pasteLighten`, `pasteMultiply`, `pasteNormal`, `pasteOverlay`, `pasteScreen`
 
 ## License
 
